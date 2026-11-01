@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITI STUDY HUB | Nellutla Harshavardhan</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f5fa;color:#182238}
+header{background:#102b50;color:white;text-align:center;padding:28px 12px}
+header h1{margin:0;font-size:30px}
+header p{margin:9px 0}
+nav{background:#174b7a;padding:12px;text-align:center}
+nav a{color:white;text-decoration:none;margin:10px;font-weight:bold}
+main{max-width:1100px;margin:auto;padding:18px}
+.panel{background:white;padding:20px;border-radius:12px;margin:16px 0;box-shadow:0 2px 9px #ccd3df}
+input,select,button{padding:12px;border:1px solid #bbc6d5;border-radius:7px;margin:5px;max-width:100%}
+button{background:#145a91;color:white;cursor:pointer;border:0}
+button:hover{background:#0d3d66}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.course{background:#eaf3ff;padding:17px;border-radius:10px}
+.course h3{color:#124d80}
+.lesson{border-bottom:1px solid #ddd;padding:12px 0}
+.answer{display:block;margin:9px 0}
+footer{text-align:center;background:#102b50;color:white;padding:20px;margin-top:30px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>📘 ITI STUDY HUB</h1>
+<p>Learn • Practice • Test • Improve</p>
+<p>Created by Nellutla Harshavardhan</p>
+</header>
+
+<nav>
+<a href="#courses">Courses</a>
+<a href="#lessons">Lessons</a>
+<a href="#test">MCQ Test</a>
+</nav>
+
+<main>
+<section class="panel">
+<h2>Welcome to ITI Study Hub</h2>
+<p>Study ITI trade subjects, revise important topics and practise multiple-choice questions.</p>
+<input id="search" placeholder="Search courses or lessons..." oninput="searchContent()">
+</section>
+
+<section class="panel" id="courses">
+<h2>ITI Courses</h2>
+<div class="grid" id="courseList">
+<div class="course"><h3>Electrician</h3><p>Electrical basics, wiring, machines and safety.</p><button onclick="showCourse('Electrician')">Open Course</button></div>
+<div class="course"><h3>Fitter</h3><p>Fitting tools, measuring and workshop practice.</p><button onclick="showCourse('Fitter')">Open Course</button></div>
+<div class="course"><h3>Diesel Mechanic</h3><p>Engine parts, fuel systems and maintenance.</p><button onclick="showCourse('Diesel Mechanic')">Open Course</button></div>
+<div class="course"><h3>ATC</h3><p>Trade lessons and practice topics.</p><button onclick="showCourse('ATC')">Open Course</button></div>
+<div class="course"><h3>Engineering Drawing</h3><p>Drawing basics, symbols and projections.</p><button onclick="showCourse('Engineering Drawing')">Open Course</button></div>
+<div class="course"><h3>Workshop Calculation & Science</h3><p>Mathematics, measurements and science.</p><button onclick="showCourse('Workshop Calculation & Science')">Open Course</button></div>
+<div class="course"><h3>Employability Skills</h3><p>Communication, computer and workplace skills.</p><button onclick="showCourse('Employability Skills')">Open Course</button></div>
+</div>
+</section>
+
+<section class="panel" id="lessons">
+<h2 id="courseTitle">Select a Course</h2>
+<div id="lessonContent">Choose a course above to view its starter lessons.</div>
+</section>
+
+<section class="panel" id="test">
+<h2>📝 MCQ Practice Test</h2>
+<p>Select an answer and click Submit Test to see your score.</p>
+<div id="quiz"></div>
+<button onclick="checkTest()">Submit Test</button>
+<button onclick="loadTest()">Try Again</button>
+<h3 id="score"></h3>
+</section>
+</main>
+
+<footer>
+<p>ITI STUDY HUB</p>
+<p>Created by Nellutla Harshavardhan</p>
+<p>For learning and practice purposes.</p>
+</footer>
+
+<script>
+const lessons={
+"Electrician":[
+["Basic Electricity","Learn voltage, current, resistance and electrical units."],
+["Ohm's Law","Study the relationship between voltage, current and resistance. Formula: V = I × R."],
+["Series Circuits","Learn how components are connected in one path."],
+["Parallel Circuits","Learn how components are connected in separate branches."],
+["Electrical Power","Formula: P = V × I. Unit: Watt."],
+["AC and DC","Understand alternating current and direct current."],
+["Electrical Safety","Learn safe working practices and electrical precautions."],
+["Electrical Machines","Introduction to motors, generators and transformers."]
+],
+"Fitter":[
+["Fitting Tools","Introduction to files, hacksaws, hammers and spanners."],
+["Measuring Tools","Learn the use of steel rules, calipers and micrometers."],
+["Marking Tools","Study marking and layout tools."],
+["Drilling","Introduction to drilling machines and drill bits."],
+["Fasteners","Learn nuts, bolts, screws and rivets."]
+],
+"Diesel Mechanic":[
+["Diesel Engine Basics","Introduction to engine parts and working principles."],
+["Fuel System","Learn the basic parts of a diesel fuel system."],
+["Cooling System","Understand engine cooling."],
+["Lubrication System","Learn the purpose of engine lubrication."],
+["Engine Maintenance","Introduction to inspection and maintenance."]
+],
+"ATC":[
+["Trade Introduction","Introduction to the trade and workshop safety."],
+["Tools and Equipment","Learn common tools and their uses."],
+["Basic Science","Revise basic scientific concepts."],
+["Practical Skills","Study introductory practical topics."]
+],
+"Engineering Drawing":[
+["Drawing Instruments","Learn drawing board, scales, pencils and instruments."],
+["Types of Lines","Study object, hidden and centre lines."],
+["Geometrical Construction","Practise basic geometric constructions."],
+["Orthographic Projection","Introduction to front, top and side views."]
+],
+"Workshop Calculation & Science":[
+["Basic Mathematics","Practise numbers, fractions and decimals."],
+["Measurements","Learn units and conversions."],
+["Area and Volume","Study basic area and volume calculations."],
+["Force and Work","Introduction to force, work and power."]
+],
+"Employability Skills":[
+["Communication Skills","Learn effective communication."],
+["Computer Basics","Introduction to computers and digital skills."],
+["Workplace Safety","Understand safe workplace behaviour."],
+["Interview Skills","Learn interview preparation basics."]
+]
+};
+
+function showCourse(name){
+document.getElementById("courseTitle").textContent=name+" – Lessons";
+let html="";
+lessons[name].forEach((item,i)=>{
+html+=`<div class="lesson"><h3>${i+1}. ${item[0]}</h3><p>${item[1]}</p></div>`;
+});
+document.getElementById("lessonContent").innerHTML=html;
+document.getElementById("lessons").scrollIntoView({behavior:"smooth"});
+}
+
+function searchContent(){
+let q=document.getElementById("search").value.toLowerCase();
+document.querySelectorAll(".course").forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(q)?"block":"none";
+});
+}
+
+const questions=[
+{q:"What is the unit of electric current?",a:["Volt","Ampere","Ohm","Watt"],correct:1},
+{q:"What is the unit of resistance?",a:["Ohm","Watt","Ampere","Joule"],correct:0},
+{q:"Which instrument measures voltage?",a:["Ammeter","Voltmeter","Wattmeter","Ruler"],correct:1},
+{q:"What is the unit of power?",a:["Joule","Ohm","Watt","Volt"],correct:2},
+{q:"Which current changes direction periodically?",a:["DC","AC","Both never","None"],correct:1}
+];
+
+function loadTest(){
+let html="";
+questions.forEach((item,i)=>{
+html+=`<div class="lesson"><b>${i+1}. ${item.q}</b>`;
+item.a.forEach((option,j)=>{
+html+=`<label class="answer"><input type="radio" name="q${i}" value="${j}"> ${option}</label>`;
+});
+html+="</div>";
+});
+document.getElementById("quiz").innerHTML=html;
+document.getElementById("score").textContent="";
+}
+
+function checkTest(){
+let score=0;
+questions.forEach((item,i)=>{
+let selected=document.querySelector(`input[name="q${i}"]:checked`);
+if(selected && Number(selected.value)===item.correct) score++;
+});
+document.getElementById("score").textContent=
+"Your Score: "+score+" / "+questions.length;
+}
+
+loadTest();
+</script>
+</body>
+</html>
+
+ 
